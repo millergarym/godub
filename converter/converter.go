@@ -219,6 +219,9 @@ func (c *Converter) doConvert() error {
 	c.extendExtraArgs()
 	c.extendCmdArgs(dstFile.Name())
 
+	fmt.Fprintf(os.Stderr, "cmd; '%s'\n", c.cmd.String())
+	c.cmd.Stderr = os.Stderr
+	c.cmd.Stdout = os.Stdout
 	err = c.cmd.Run()
 	if err != nil {
 		return EncodeError(fmt.Sprintf("encoding failed: %s", err))
